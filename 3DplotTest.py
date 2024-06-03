@@ -34,26 +34,11 @@ with open('resources/BMI_Age_2DFraminghamOLAPCube_dataset.csv', newline='') as c
             values = ','.join(row)
             values = values.split(",")
             values.pop(0)
-            v= [float(value) if value != "" else 0 for value in values]
+            v= [float(value) if value != "" else np.NaN for value in values]
             z.append(v)
          i=1
 
 
-#  remove 0
-
-for i, row in enumerate(z):
-        for j, _ in enumerate(row):
-            if z[i][j] == 0:
-                x[i]=-1
-                y[j]=-1
-print(x)
-x.remove(-1)
-print(x)
-y.remove(-1)
-
-
-
-#-----------------
 
 
 
@@ -67,7 +52,7 @@ X, Y = np.meshgrid(x, y)
 
 
 plt.figure()
-contour = plt.contour(x, y, z,  colors=['red', 'green', 'blue'], linestyles=['-', '--'])
+contour = plt.contour(X, Y, z,  colors=['red', 'green', 'blue'], linestyles=['-', '--'])
 plt.clabel(contour, inline=True, fontsize=8)
 plt.xlabel('age')
 plt.ylabel('bmi')
